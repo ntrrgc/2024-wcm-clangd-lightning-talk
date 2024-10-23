@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title class="igalia-title">Igalia Slides</title>
+  <link rel="stylesheet" href="https://systems.pages.igalia.com/tools/igalia-slides/latest/css/reset.css">
+  <link rel="stylesheet" href="https://systems.pages.igalia.com/tools/igalia-slides/latest/css/reveal.css">
+  <link rel="stylesheet" href="https://systems.pages.igalia.com/tools/igalia-slides/latest/css/theme/igalia.css"
+    id="theme">
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/highlight/monokai.css"
+    id="highlight-theme">
+  <link rel="stylesheet" href="custom-styles.css" id="custom">
+  <link rel="shortcut icon" type="image/png"
+    href="https://systems.pages.igalia.com/tools/igalia-slides/latest/css/theme/images/imago.png" />
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="presentation.md" data-separator="^---\n" data-separator-vertical="^----\n"
+        data-charset="utf-8">
+      </section>
+      <section data-middle-cover>
+        <img src="https://systems.pages.igalia.com/tools/igalia-slides/latest/css/theme/images/igalia-logo.svg"
+          width="178px">
+      </section>
+
+    </div>
+
+    <!-- Do not remove -->
+    <div class="igalia-bg-1"></div>
+    <div class="igalia-bg-2"></div>
+    <div class="igalia-bg-3"></div>
+    <div class="igalia-footer">
+      <!-- placeholder text-->
+      <strong>Slide Deck Title</strong>
+      Presenter(s), Presentation Date
+    </div>
+  </div>
+
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/js/reveal.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/notes/notes.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/markdown/markdown.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/highlight/highlight.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/math/math.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/chart/Chart.min.js"></script>
+  <script
+    src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/chart/chartjs-plugin-datalabels.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/chart/plugin.js"></script>
+  <script src="https://systems.pages.igalia.com/tools/igalia-slides/latest/plugin/search/search.js"></script>
+
+  <script>
+    const onSlideChange = event => {
+      let currentSlideOwnerDoc = event.currentSlide.ownerDocument;
+
+      if (currentSlideOwnerDoc.URL.includes('view=scroll')) {
+        let bg1 = document.getElementsByClassName('igalia-bg-1')[0]
+        let bg2 = document.getElementsByClassName('igalia-bg-2')[0]
+        let bg3 = document.getElementsByClassName('igalia-bg-3')[0]
+        let footer = document.getElementsByClassName('igalia-footer')[0]
+        event.currentSlide.after(bg1)
+        event.currentSlide.after(bg2)
+        event.currentSlide.after(bg3)
+        if (!event.currentSlide.dataset.hasOwnProperty('middleCover')) {
+          event.currentSlide.after(footer)
+        }
+      }
+
+      if (event.currentSlide.dataset.hasOwnProperty('cover')) {
+        document.querySelector('.reveal').classList.add('is-cover')
+      } else {
+        document.querySelector('.reveal').classList.remove('is-cover')
+      }
+      if (event.currentSlide.dataset.hasOwnProperty('middleCover')) {
+        document.querySelector('.reveal').classList.add('is-middle-cover')
+      } else {
+        document.querySelector('.reveal').classList.remove('is-middle-cover')
+      }
+      if (event.currentSlide.dataset.hasOwnProperty('sectionCover')) {
+        document.querySelector('.reveal').classList.add('is-section-cover')
+      } else {
+        document.querySelector('.reveal').classList.remove('is-section-cover')
+      }
+      if (event.currentSlide.dataset.hasOwnProperty('sectionCover-2')) {
+        document.querySelector('.reveal').classList.add('is-section-cover2')
+      } else {
+        document.querySelector('.reveal').classList.remove('is-section-cover2')
+      }
+      if (event.currentSlide.dataset.hasOwnProperty('backgroundColor')
+        || event.currentSlide.dataset.hasOwnProperty('backgroundImage')) {
+        document.querySelector('.reveal').classList.add('is-bg')
+      } else {
+        document.querySelector('.reveal').classList.remove('is-bg')
+      }
+    }
+
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      height: 860,
+      width: 1040,
+      minScale: 0.2,
+      maxScale: 2.5,
+      controlsLayout: 'edges',
+      chart: {
+        defaults: {
+          global: {
+            title: { fontColor: "#000" },
+            legend: {
+              position: "bottom",
+              labels: { fontColor: "#000" },
+            },
+            tooltips: {
+              labels: { fontColor: "#000" },
+            },
+            plugins: {
+              datalabels: {
+                display: function (context) {
+                  return context.chart.canvas.dataset.labels || false;
+                },
+                anchor: "end",
+                align: "end",
+                color: "#000",
+                formatter: function (value, context) {
+                  return (`${value}€`).replace(',', '.');
+                }
+              }
+            },
+          },
+          scale: {
+            scaleLabel: { fontColor: "#000" },
+            ticks: { fontColor: "#000", beginAtZero: true },
+          },
+        },
+        pie: {
+          backgroundColor: [["#0067B1", "#FF9900", "#670164", "#A1C22D"]],
+          fontSize: 40
+        },
+        bar: { backgroundColor: ["#0067B1", "#FF9900", "#670164", "#A1C22D"], },
+        line: { backgroundColor: ["#0067B1", "#FF9900", "#670164", "#A1C22D"], },
+      },
+      pdfMaxPagesPerSlide: 1,
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealChart, RevealMath, RevealSearch],
+      transition: 'none',
+      navigationMode: 'linear'
+    });
+
+    Reveal.on('slidechanged', onSlideChange);
+    Reveal.on('ready', onSlideChange);
+
+    fetch('slides-info.json')
+      .then(response => response.json())
+      .then(data => {
+        let hasDataAndAuthors = data.authors && data.authors.trim().length > 0 && data.date && data.date.trim().length > 0;
+        let footer = document.getElementsByClassName('igalia-footer')[0]
+        footer.innerHTML = `<strong>${data.title}</strong>`
+          + data.authors + (hasDataAndAuthors ? ", " + data.date : "" + data.date);
+        let title = document.getElementsByClassName('igalia-title')[0];
+        var div = document.createElement("div");
+        div.innerHTML = data.title;
+        title.innerHTML = div.textContent;
+        div.remove();
+
+        const isElementLoaded = async selector => {
+          while (document.querySelector(selector) === null) {
+            await new Promise(resolve => requestAnimationFrame(resolve))
+          }
+          return document.querySelector(selector);
+        };
+
+        isElementLoaded('#presentation-title').then((selector) => {
+          document.getElementById('presentation-title').innerHTML = data.title
+          Reveal.layout();
+        });
+        isElementLoaded('#presentation-author').then((selector) => {
+          document.getElementById('presentation-author').innerHTML = data.authors
+          Reveal.layout();
+        });
+        isElementLoaded('#presentation-date').then((selector) => {
+          document.getElementById('presentation-date').innerHTML = data.date
+          Reveal.layout();
+        });
+
+        if (data.transition)
+          Reveal.configure({ transition: data.transition });
+        if (data.navigationMode)
+          Reveal.configure({ navigationMode: data.navigationMode });
+      });
+  </script>
+</body>
+
+</html>
